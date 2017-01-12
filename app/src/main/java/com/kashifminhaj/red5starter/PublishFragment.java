@@ -71,6 +71,7 @@ public class PublishFragment extends Fragment implements SurfaceHolder.Callback 
     public void surfaceCreated(SurfaceHolder holder) {
         try {
             camera.setPreviewDisplay(holder);
+            camera.setDisplayOrientation(90);
             camera.startPreview();
         }
         catch(Exception e) {
@@ -177,10 +178,11 @@ public class PublishFragment extends Fragment implements SurfaceHolder.Callback 
             }
         });
 
+        SurfaceView cameraView = (SurfaceView) getActivity().findViewById(R.id.surfaceView);
 
-        stream.setView((SurfaceView) getActivity().findViewById(R.id.surfaceView));
+        stream.setView(cameraView);
 
-        R5Camera r5Camera = new R5Camera(camera, 320, 240);
+        R5Camera r5Camera = new R5Camera(camera, cameraView.getWidth(), cameraView.getHeight());
         R5Microphone r5Microphone = new R5Microphone();
 
         stream.attachCamera(r5Camera);
